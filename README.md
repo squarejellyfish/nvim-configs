@@ -2,7 +2,7 @@
 
 My personal nvim configs with file structure like following:
 
-![structure](~/.config/nvim/structure.png)
+![structure](/structure.png)
 
 ## Plug-ins List
 
