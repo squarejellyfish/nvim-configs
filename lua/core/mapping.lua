@@ -42,10 +42,10 @@ km.set("i", "<C-k>", "<Up>")
 
 -- normal mode shits
 km.set("n", "<Esc>", ":noh<CR>")
-km.set("n", "<C-h>", "<C-w>h")
-km.set("n", "<C-l>", "<C-w>l")
-km.set("n", "<C-j>", "<C-w>j")
-km.set("n", "<C-k>", "<C-w>k")
+-- km.set("n", "<C-h>", "<C-w>h")
+-- km.set("n", "<C-l>", "<C-w>l")
+-- km.set("n", "<C-j>", "<C-w>j")
+-- km.set("n", "<C-k>", "<C-w>k")
 km.set("n", "<C-s>", "<cmd> w <CR>")
 km.set("n", "<C-c>",  "<cmd> %y+ <CR>")
 km.set("n", "<leader>p", "_dP")
@@ -56,7 +56,7 @@ vim.api.nvim_set_keymap("n", "<Up>", "v:count == 0 ? 'gk' : 'k'", { noremap = tr
 vim.api.nvim_set_keymap("n", "<Down>", "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
 
 -- terminal mode
-km.set("t", "<C-x>", vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true))
+km.set("t", "jk", vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true))
 
 -- x mode ?
 
