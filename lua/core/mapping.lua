@@ -62,3 +62,6 @@ km.set("t", "<C-x>", vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, t
 
 vim.api.nvim_set_keymap("x", "k", "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
 vim.api.nvim_set_keymap("x", "j", "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
+
+-- some buffer shits
+km.set("n", "<leader>x", ":bd<CR>")
