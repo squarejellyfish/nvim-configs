@@ -33,3 +33,4 @@ My personal nvim configs with file structure like following:
 * iamcco/markdown-preview.nvim
 * akinsho/bufferline.nvim
 * tpope/vim-fugitive
+* christoomey/vim-tmux-navigator
