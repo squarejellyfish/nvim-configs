@@ -30,4 +30,6 @@ My personal nvim configs with file structure like following:
 * NvChad/nvterm
 * numToStr/Comment.nvim
 * rafamadriz/friendly-snippets
-  
+* iamcco/markdown-preview.nvim
+* akinsho/bufferline.nvim
+* tpope/vim-fugitive
