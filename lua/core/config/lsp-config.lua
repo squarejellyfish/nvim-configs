@@ -1,6 +1,6 @@
 require("mason").setup()
 require("mason-lspconfig").setup({
-	ensure_installed = { "lua_ls", "clangd", "pyright" },
+	ensure_installed = { "lua_ls", "clangd", "pyright", "marksman" },
 })
 
 local on_attach = function(_, _)
@@ -38,3 +38,9 @@ require("lspconfig").pyright.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
+
+require("lspconfig").marksman.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+})
+
