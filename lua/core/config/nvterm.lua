@@ -22,6 +22,20 @@ km.set("n", "<leader>rc", function()
 	require("nvterm.terminal").send(string.format("./%s", output))
 end)
 
+km.set("n", "<leader>cp", function()
+	local current_path = vim.api.nvim_buf_get_name(0)
+	local output_name = current_path:sub(1, -5)
+	local output = ""
+	for word in string.gmatch(output_name, "([^/]+)") do
+		output = word
+	end
+	local file_path = output_name:gsub(output, "", 1)
+	local cmd = string.format("g++ %s -o %s -Wall", current_path, output_name)
+	require("nvterm.terminal").send(cmd)
+	require("nvterm.terminal").send(string.format("cd %s", file_path))
+	require("nvterm.terminal").send(string.format("./%s", output))
+end)
+
 km.set("n", "<leader>rp", function()
 	local file_path = vim.api.nvim_buf_get_name(0)
 	local output = ""
@@ -30,6 +44,18 @@ km.set("n", "<leader>rp", function()
 	end
 	local path = string.gsub(file_path, output, "", 1)
 	local cmd = string.format("python3 %s", file_path)
+	require("nvterm.terminal").send(string.format("cd %s", path))
+	require("nvterm.terminal").send(cmd)
+end)
+
+km.set("n", "<leader>sp", function()
+	local file_path = vim.api.nvim_buf_get_name(0)
+	local output = ""
+	for word in string.gmatch(file_path, "([^/]+)") do
+		output = word
+	end
+	local path = string.gsub(file_path, output, "", 1)
+	local cmd = string.format("sudo python3 %s", file_path)
 	require("nvterm.terminal").send(string.format("cd %s", path))
 	require("nvterm.terminal").send(cmd)
 end)
