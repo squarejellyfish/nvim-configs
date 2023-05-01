@@ -1,6 +1,6 @@
 require("mason").setup()
 require("mason-lspconfig").setup({
-    ensure_installed = { "lua_ls", "clangd", "pyright", "marksman" },
+    ensure_installed = { "lua_ls", "clangd", "pyright", "marksman", "texlab" },
 })
 -- You will likely want to reduce updatetime which affects CursorHold
 -- note: this setting is global and should be set only once
@@ -69,3 +69,9 @@ require("lspconfig").marksman.setup({
     on_attach = on_attach,
     capabilities = capabilities,
 })
+
+require("lspconfig").texlab.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+})
+
