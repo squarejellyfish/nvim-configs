@@ -16,7 +16,7 @@ km.set("n", "<leader>rc", function()
 		output = word
 	end
 	local file_path = string.gsub(output_name, output, "", 1)
-	local cmd = string.format("gcc %s -o %s -Wall", current_path, output_name)
+	local cmd = string.format("gcc-13 %s -o %s -Wall", current_path, output_name)
 	require("nvterm.terminal").send(cmd)
 	require("nvterm.terminal").send(string.format("cd %s", file_path))
 	require("nvterm.terminal").send(string.format("./%s", output))
@@ -30,7 +30,7 @@ km.set("n", "<leader>cp", function()
 		output = word
 	end
 	local file_path = output_name:gsub(output, "", 1)
-	local cmd = string.format("g++ %s -o %s -Wall", current_path, output_name)
+	local cmd = string.format("g++-13 %s -o %s -Wall", current_path, output_name)
 	require("nvterm.terminal").send(cmd)
 	require("nvterm.terminal").send(string.format("cd %s", file_path))
 	require("nvterm.terminal").send(string.format("./%s", output))
