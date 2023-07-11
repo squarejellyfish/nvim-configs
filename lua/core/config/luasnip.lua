@@ -43,3 +43,12 @@ ls.add_snippets("c", {
         t({"", "}"})
     })
 })
+
+ls.add_snippets("cpp", {
+    s("codeforces", {
+        t({"#include <iostream>"}),
+        t({"", "","using namespace std;", "using ll = long long;", "using ull = unsigned long long;"}),
+        t({"", "", "int main() {", "\tios_base::sync_with_stdio(false);", "\tcin.tie(NULL);", "\t"}), i(0),
+        t({"", "\treturn 0;", "", "}"})
+    })
+})

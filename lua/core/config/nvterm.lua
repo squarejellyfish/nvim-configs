@@ -21,6 +21,19 @@ km.set("n", "<leader>rc", function()
 	require("nvterm.terminal").send(string.format("cd %s", file_path))
 	require("nvterm.terminal").send(string.format("./%s", output))
 end)
+km.set("n", "<leader>jg", function()
+	local current_path = vim.api.nvim_buf_get_name(0)
+	local output_name = string.sub(current_path, 1, -3)
+	local output = ""
+	for word in string.gmatch(output_name, "([^/]+)") do
+		output = word
+	end
+	local file_path = string.gsub(output_name, output, "", 1)
+	local cmd = string.format("gcc %s -o %s -Wall -Wextra -O2 -std=c99", current_path, output_name)
+	require("nvterm.terminal").send(cmd)
+	require("nvterm.terminal").send(string.format("cd %s", file_path))
+	require("nvterm.terminal").send(string.format("./%s", output))
+end)
 
 km.set("n", "<leader>cp", function()
 	local current_path = vim.api.nvim_buf_get_name(0)
@@ -30,7 +43,7 @@ km.set("n", "<leader>cp", function()
 		output = word
 	end
 	local file_path = output_name:gsub(output, "", 1)
-	local cmd = string.format("g++ %s -o %s -Wall", current_path, output_name)
+	local cmd = string.format("g++ %s -o %s -Wall -Wextra -std=c++20 -O2", current_path, output_name)
 	require("nvterm.terminal").send(cmd)
 	require("nvterm.terminal").send(string.format("cd %s", file_path))
 	require("nvterm.terminal").send(string.format("./%s", output))
