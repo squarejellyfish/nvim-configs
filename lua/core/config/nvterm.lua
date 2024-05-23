@@ -8,7 +8,7 @@ km.set("n", "<leader>v", function()
 	require("nvterm.terminal").new("vertical")
 end)
 
-km.set("n", "<leader>rc", function()
+km.set("n", "<leader>rc", function() -- run C
 	local current_path = vim.api.nvim_buf_get_name(0)
 	local output_name = string.sub(current_path, 1, -3)
 	local output = ""
@@ -21,7 +21,7 @@ km.set("n", "<leader>rc", function()
 	require("nvterm.terminal").send(string.format("cd %s", file_path))
 	require("nvterm.terminal").send(string.format("./%s", output))
 end)
-km.set("n", "<leader>jg", function()
+km.set("n", "<leader>jg", function() -- run judgegirl
 	local current_path = vim.api.nvim_buf_get_name(0)
 	local output_name = string.sub(current_path, 1, -3)
 	local output = ""
@@ -35,7 +35,7 @@ km.set("n", "<leader>jg", function()
 	require("nvterm.terminal").send(string.format("./%s", output))
 end)
 
-km.set("n", "<leader>cp", function()
+km.set("n", "<leader>cp", function() -- cpp
 	local current_path = vim.api.nvim_buf_get_name(0)
 	local output_name = current_path:sub(1, -5)
 	local output = ""
