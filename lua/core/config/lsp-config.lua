@@ -63,6 +63,13 @@ require("lspconfig").clangd.setup({
 require("lspconfig").pyright.setup({
     on_attach = on_attach,
     capabilities = capabilities,
+    settings = {
+        python = {
+            analysis = {
+                typeCheckingMode = "off"
+            }
+        }
+    }
 })
 
 require("lspconfig").marksman.setup({
