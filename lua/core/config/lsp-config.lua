@@ -82,3 +82,7 @@ require("lspconfig").texlab.setup({
     capabilities = capabilities,
 })
 
+require("lspconfig").jsonls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+})
