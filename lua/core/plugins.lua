@@ -20,7 +20,7 @@ return require("packer").startup(function(use)
 	use("nvim-treesitter/nvim-treesitter")
 	use({
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.1",
+		tag = "0.1.4",
 		-- or, branch = '0.1.x',
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
@@ -67,15 +67,9 @@ return require("packer").startup(function(use)
 	use("numToStr/Comment.nvim")
 	use("rafamadriz/friendly-snippets")
 
-	use({
-		"iamcco/markdown-preview.nvim",
-		run = function()
-			vim.fn["mkdp#util#install"]()
-		end,
-	})
 	use({ "akinsho/bufferline.nvim", tag = "*", requires = "nvim-tree/nvim-web-devicons" })
 	use("tpope/vim-fugitive")
-    use("christoomey/vim-tmux-navigator")
+    -- use("christoomey/vim-tmux-navigator")
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if packer_bootstrap then
