@@ -9,6 +9,6 @@ require("lualine").setup({
                 "filename",
                 path = 3,
             }
-        }
-    }
+        },
+    },
 })

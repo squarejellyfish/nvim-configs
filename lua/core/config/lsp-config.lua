@@ -13,12 +13,16 @@ vim.diagnostic.config({
 })
 vim.o.updatetime = 150
 
+local builtin = require("telescope.builtin")
+
 local on_attach = function(client, bufnr)
     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {})
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, {})
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
-    vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references, {})
+    vim.keymap.set("n", "gr", builtin.lsp_references, {})
     vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
+    vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, {})
+    vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, {})
     vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
 
     -- formatting shits
@@ -85,4 +89,26 @@ require("lspconfig").texlab.setup({
 require("lspconfig").jsonls.setup({
     on_attach = on_attach,
     capabilities = capabilities,
+})
+require("lspconfig").rust_analyzer.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = {
+        ["rust-analyzer"] = {
+            imports = {
+                granularity = {
+                    group = "module",
+                },
+                prefix = "self",
+            },
+            cargo = {
+                buildScripts = {
+                    enable = true,
+                },
+            },
+            procMacro = {
+                enable = true
+            },
+        }
+    }
 })
