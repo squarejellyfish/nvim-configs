@@ -20,9 +20,8 @@ return require("packer").startup(function(use)
 	use("nvim-treesitter/nvim-treesitter")
 	use({
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.1",
-		-- or, branch = '0.1.x',
 		requires = { { "nvim-lua/plenary.nvim" } },
+		-- tag = "0.1.4", 
 	})
 	use({
 		"williamboman/mason.nvim",
@@ -38,20 +37,20 @@ return require("packer").startup(function(use)
 	})
 	use({
 		"jose-elias-alvarez/null-ls.nvim",
-		config = function()
-			require("core.config.null-ls")
-		end,
-		requires = { "nvim-lua/plenary.nvim" },
+        config = function()
+            require("core.config.null-ls")
+        end,
+        requires = { "nvim-lua/plenary.nvim" },
 	})
-	use({
-		"kylechui/nvim-surround",
-		tag = "*", -- Use for stability; omit to use `main` branch for the latest features
-		config = function()
-			require("nvim-surround").setup({
-				-- Configuration here, or leave empty to use defaults
-			})
-		end,
-	})
+    use({
+        "kylechui/nvim-surround",
+        tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+        config = function()
+            require("nvim-surround").setup({
+                -- Configuration here, or leave empty to use defaults
+            })
+        end,
+    })
 	use({
 		"windwp/nvim-autopairs",
 		config = function()
@@ -76,6 +75,7 @@ return require("packer").startup(function(use)
 	use({ "akinsho/bufferline.nvim", tag = "*", requires = "nvim-tree/nvim-web-devicons" })
 	use("tpope/vim-fugitive")
     use("christoomey/vim-tmux-navigator")
+    use("simrat39/rust-tools.nvim")
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if packer_bootstrap then
