@@ -57,12 +57,15 @@ return require("packer").startup(function(use)
 			require("nvim-autopairs").setup({})
 		end,
 	})
-	use({
-		"NvChad/nvterm",
-		config = function()
-			require("nvterm").setup()
-		end,
-	})
+	-- use({
+	-- 	"NvChad/nvterm",
+	-- 	config = function()
+	-- 		require("nvterm").setup()
+	-- 	end,
+	-- })
+    use {"akinsho/toggleterm.nvim", tag = '*', config = function()
+        require("toggleterm").setup()
+    end}
 	use("numToStr/Comment.nvim")
 	use("rafamadriz/friendly-snippets")
 
