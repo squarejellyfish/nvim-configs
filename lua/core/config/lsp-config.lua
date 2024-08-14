@@ -15,7 +15,8 @@ vim.o.updatetime = 150
 
 local builtin = require("telescope.builtin")
 
-local on_attach = function(client, bufnr)
+local on_attach = function(_, bufnr)
+    -- General keymaps
     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {})
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, {})
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
@@ -26,10 +27,20 @@ local on_attach = function(client, bufnr)
     vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, {})
     vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
 
+    -- Only if the filetype is rust we attach these mfs
+    local filetype = vim.bo.filetype
+    if (filetype == "rust") then
+        vim.keymap.set("n", "<C-space>", require("rust-tools").hover_actions.hover_actions, { buffer = bufnr })
+        -- Code action groups
+        vim.keymap.set("n", "<Leader>a", require("rust-tools").code_action_group.code_action_group, { buffer = bufnr })
+    end
+
     -- formatting shits
     vim.keymap.set("n", "<leader>fm", function()
         vim.lsp.buf.format({ async = true })
     end, {})
+
+    -- Open floating diagnostic window on CursorHold
     vim.api.nvim_create_autocmd("CursorHold", {
         buffer = bufnr,
         callback = function()
@@ -91,25 +102,29 @@ require("lspconfig").jsonls.setup({
     on_attach = on_attach,
     capabilities = capabilities,
 })
-require("lspconfig").rust_analyzer.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    settings = {
-        ["rust-analyzer"] = {
-            imports = {
-                granularity = {
-                    group = "module",
+
+-- rust-tools automactically setup the rust-analyzer
+require("rust-tools").setup({
+    server = {
+        on_attach = on_attach,
+        capabilities = capabilities,
+        settings = {
+            ["rust-analyzer"] = {
+                imports = {
+                    granularity = {
+                        group = "module",
+                    },
+                    prefix = "self",
                 },
-                prefix = "self",
-            },
-            cargo = {
-                buildScripts = {
-                    enable = true,
+                cargo = {
+                    buildScripts = {
+                        enable = true,
+                    },
                 },
-            },
-            procMacro = {
-                enable = true
-            },
+                procMacro = {
+                    enable = true
+                },
+            }
         }
     }
 })
