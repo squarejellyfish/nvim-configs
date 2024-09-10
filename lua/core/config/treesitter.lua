@@ -4,5 +4,6 @@ require("nvim-treesitter.configs").setup {
     sync_isntall = false,
     highlight = {
         enable = true,
+        additional_vim_regex_highlighting = { "python" },
     },
 }

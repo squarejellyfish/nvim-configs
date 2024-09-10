@@ -78,6 +78,7 @@ return require("packer").startup(function(use)
 	use({ "akinsho/bufferline.nvim", tag = "*", requires = "nvim-tree/nvim-web-devicons" })
 	use("tpope/vim-fugitive")
     use("christoomey/vim-tmux-navigator")
+    use("mbbill/undotree")
     use("simrat39/rust-tools.nvim")
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
