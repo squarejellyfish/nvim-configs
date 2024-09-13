@@ -52,3 +52,20 @@ ls.add_snippets("cpp", {
         t({"", "\treturn 0;", "", "}"})
     })
 })
+
+ls.add_snippets("cmake", {
+    s("default", {
+        t({"cmake_minimum_required (VERSION 3.26)"}),
+        t({"", "", "project(main)"}),
+        t({"", "# set(CMAKE_CXX_COMPILER \"/usr/bin/c++\")"}),
+        t({"", "set(CMAKE_EXPORT_COMPILE_COMMANDS 1)"}),
+        t({"", "", "add_executable(main main.cpp)"}),
+    })
+})
+
+ls.add_snippets("make", {
+    s("default", {
+        t({"default:"}),
+        t({"", "\tg++ main.cpp -o main"}),
+    })
+})
