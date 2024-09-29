@@ -1,88 +1,126 @@
-local ensure_packer = function()
-	local fn = vim.fn
-	local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-	if fn.empty(fn.glob(install_path)) > 0 then
-		fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-		vim.cmd([[packadd packer.nvim]])
-		return true
-	end
-	return false
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+    local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+    local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+    if vim.v.shell_error ~= 0 then
+        vim.api.nvim_echo({
+            { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+            { out, "WarningMsg" },
+            { "\nPress any key to exit..." },
+        }, true, {})
+        vim.fn.getchar()
+        os.exit(1)
+    end
 end
+vim.opt.rtp:prepend(lazypath)
 
-local packer_bootstrap = ensure_packer()
+vim.opt.laststatus = 3 -- global statusline
+vim.opt.showmode = false
 
-return require("packer").startup(function(use)
-	use("wbthomason/packer.nvim")
-	use("ellisonleao/gruvbox.nvim")
-	use("nvim-tree/nvim-tree.lua")
-	use("nvim-tree/nvim-web-devicons")
-	use("nvim-lualine/lualine.nvim")
-	use("nvim-treesitter/nvim-treesitter")
-	use({
+vim.opt.clipboard = "unnamedplus"
+vim.opt.cursorline = true
+
+-- Indenting
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 4
+vim.opt.smartindent = true
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+
+vim.opt.fillchars = { eob = " " }
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.mouse = "a"
+
+-- Numbers
+vim.opt.number = true
+vim.opt.numberwidth = 2
+vim.opt.ruler = false
+vim.opt.relativenumber = true
+vim.opt.scrolloff = 8
+
+vim.opt.termguicolors = true
+
+vim.opt.whichwrap:append "<>[]hl"
+
+vim.g.mapleader = " "
+
+
+require("lazy").setup({
+	"wbthomason/packer.nvim",
+	"ellisonleao/gruvbox.nvim",
+	"nvim-tree/nvim-tree.lua",
+	"nvim-tree/nvim-web-devicons",
+	"nvim-lualine/lualine.nvim",
+	"nvim-treesitter/nvim-treesitter",
+	{
 		"nvim-telescope/telescope.nvim",
-		requires = { { "nvim-lua/plenary.nvim" } },
+		dependencies = { { "nvim-lua/plenary.nvim" } },
 		-- tag = "0.1.4", 
-	})
-	use({
-		"williamboman/mason.nvim",
-		"williamboman/mason-lspconfig.nvim",
-		"hrsh7th/cmp-nvim-lsp",
-		"hrsh7th/cmp-buffer",
-		"hrsh7th/cmp-path",
-		"hrsh7th/cmp-cmdline",
-		"hrsh7th/nvim-cmp",
-		"neovim/nvim-lspconfig",
-		"L3MON4D3/LuaSnip",
-		"saadparwaiz1/cmp_luasnip",
-	})
-	use({
+	},
+
+    -- LSP shits
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-path",
+    "hrsh7th/cmp-cmdline",
+    "hrsh7th/nvim-cmp",
+    "neovim/nvim-lspconfig",
+    "saadparwaiz1/cmp_luasnip",
+    {
+        "L3MON4D3/LuaSnip",
+        -- follow latest release.
+        version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+        -- install jsregexp (optional!).
+        build = "make install_jsregexp"
+    },
+	{
 		"jose-elias-alvarez/null-ls.nvim",
         config = function()
             require("core.config.null-ls")
         end,
-        requires = { "nvim-lua/plenary.nvim" },
-	})
-    use({
+        dependencies = { "nvim-lua/plenary.nvim" },
+	},
+
+    {
         "kylechui/nvim-surround",
-        tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+        version = "*", -- Use for stability; omit to use `main` branch for the latest features
         config = function()
             require("nvim-surround").setup({
                 -- Configuration here, or leave empty to use defaults
             })
         end,
-    })
-	use({
+    },
+	{
 		"windwp/nvim-autopairs",
 		config = function()
 			require("nvim-autopairs").setup({})
 		end,
-	})
-	-- use({
-	-- 	"NvChad/nvterm",
-	-- 	config = function()
-	-- 		require("nvterm").setup()
-	-- 	end,
-	-- })
-    use {"akinsho/toggleterm.nvim", tag = '*', config = function()
-        require("toggleterm").setup()
-    end}
-	use("numToStr/Comment.nvim")
-	use("rafamadriz/friendly-snippets")
-
-	use({
+	},
+    {"akinsho/toggleterm.nvim",
+        version = '*',
+        config = function()
+            require("toggleterm").setup()
+        end,
+    },
+    "numToStr/Comment.nvim",
+    "rafamadriz/friendly-snippets",
+	{
 		"iamcco/markdown-preview.nvim",
-		run = function()
+		build = function()
 			vim.fn["mkdp#util#install"]()
 		end,
-	})
-	use({ "akinsho/bufferline.nvim", tag = "*", requires = "nvim-tree/nvim-web-devicons" })
-	use("tpope/vim-fugitive")
-    use("christoomey/vim-tmux-navigator")
-    use("mbbill/undotree")
-    use("simrat39/rust-tools.nvim")
-	-- Automatically set up your configuration after cloning packer.nvim
-	-- Put this at the end after all plugins
-	if packer_bootstrap then
-		require("packer").sync()
-	end
-end)
+	},
+	{
+        "akinsho/bufferline.nvim",
+        version = "*",
+        dependencies = "nvim-tree/nvim-web-devicons"
+    },
+    "tpope/vim-fugitive",
+    "christoomey/vim-tmux-navigator",
+    "mbbill/undotree",
+    "simrat39/rust-tools.nvim",
+})
