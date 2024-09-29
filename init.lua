@@ -1,3 +1,2 @@
-require("core.mapping")
-require("core.plugins")
-require("core.config")
+require("config.lazy")
+require("config")
