@@ -80,4 +80,12 @@ return {
         end,
     },
     "simrat39/rust-tools.nvim",
+
+    {
+        "squarejellyfish/banner.nvim",
+        -- dev = true,
+        config = function ()
+            require("banner").setup()
+        end
+    },
 }
