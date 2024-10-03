@@ -33,6 +33,8 @@ local on_attach = function(_, bufnr)
         vim.keymap.set("n", "<C-space>", require("rust-tools").hover_actions.hover_actions, { buffer = bufnr })
         -- Code action groups
         vim.keymap.set("n", "<Leader>a", require("rust-tools").code_action_group.code_action_group, { buffer = bufnr })
+        -- RustJoinLines  
+        vim.keymap.set("n", "<Leader>j", require('rust-tools').join_lines.join_lines, {buffer = bufnr})
     end
 
     -- formatting shits
