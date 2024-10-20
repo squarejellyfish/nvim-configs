@@ -41,3 +41,7 @@ km.set("x", "<leader>p", "\"_dP")
 
 -- some buffer shits
 km.set("n", "<leader>x", ":bd<CR>")
+
+-- qlist shits
+km.set("n", "[c", "<cmd>cnext<CR>")
+km.set("n", "]c", "<cmd>cprev<CR>")
