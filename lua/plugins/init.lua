@@ -88,4 +88,7 @@ return {
             require("banner").setup()
         end
     },
+    {
+        "mg979/vim-visual-multi",
+    },
 }
