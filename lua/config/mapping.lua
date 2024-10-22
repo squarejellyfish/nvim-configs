@@ -42,6 +42,10 @@ km.set("x", "<leader>p", "\"_dP")
 -- some buffer shits
 km.set("n", "<leader>x", ":bd<CR>")
 
--- qlist shits
-km.set("n", "[c", "<cmd>cnext<CR>")
-km.set("n", "]c", "<cmd>cprev<CR>")
+-- quicklist shits
+km.set("n", "[c", "<cmd>cnext<CR>", {desc = "quickfix list next"})
+km.set("n", "]c", "<cmd>cprev<CR>", {desc = "quickfix list prev"})
+
+-- windows shits
+km.set("n", "<leader>>", "10<C-w>>")
+km.set("n", "<leader><", "10<C-w><")
